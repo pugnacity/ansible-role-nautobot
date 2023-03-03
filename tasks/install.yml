@@ -1,6 +1,6 @@
 ---
 - name: install | install required system packages
-  ansible.builtin.yum:
+  ansible.builtin.package:
     name: "{{ python_packages }}"
     state: present
 
@@ -12,7 +12,7 @@
     state: present
 
 - name: install | install system packages for LDAP authentication
-  ansible.builtin.yum:
+  ansible.builtin.package:
     name: "{{ python_packages_ldap }}"
     state: present
   loop:
@@ -45,7 +45,7 @@
       - pip
       - wheel
     virtualenv: "{{ nautobot_root }}"
-    virtualenv_command: python3 -m venv
+    virtualenv_command: python{{ python_default_version}} -m venv
     state: latest
   become: true
   become_user: "{{ nautobot_system_user }}"
@@ -55,7 +55,7 @@
     name: nautobot
     version: "{{ nautobot_version | default('') }}"
     virtualenv: "{{ nautobot_root }}"
-    virtualenv_command: python3 -m venv
+    virtualenv_command: python{{ python_default_version}} -m venv
   become: true
   become_user: "{{ nautobot_system_user }}"
   register: nautobot_pip
@@ -117,7 +117,7 @@
   become_user: "{{ nautobot_system_user }}"
 
 - name: install | include Nautobot configuration tasks
-  include: configure.yml
+  ansible.builtin.include_tasks: configure.yml
 
 # This step is used to determine whether the run is the first installation of
 # Nautobot to determine whether initial users should be created (if defined)
