@@ -1,0 +1,11 @@
+---
+python_packages:
+  - git
+  - python39
+  - python39-pip
+
+python_packages_ldap:
+  - gcc
+  - openldap-devel
+
+python_default_version: 3.9
