@@ -1,0 +1,10 @@
+nautobot=={{ nautobot_version }}
+{% if nautobot_napalm.username | length > 0 %}
+napalm
+{% endif %}
+{% for plugin in nautobot_plugins.value | sort(attribute="name") %}
+{{ plugin['pip'] }}
+{% endfor %}
+{% if nautobot_auth_ldap is defined %}
+django-auth-ldap
+{% endif %}
