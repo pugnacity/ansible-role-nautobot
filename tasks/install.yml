@@ -63,6 +63,7 @@
     dest: "{{ nautobot_root }}/local_requirements.txt"
     owner: "{{ nautobot_system_user }}"
     mode: '0664'
+  register: nautobot_pip
   become: true
   become_user: "{{ nautobot_system_user }}"
   notify: restart_nautobot
@@ -74,7 +75,6 @@
     virtualenv_command: python3 -m venv
     state: present
   notify: restart_nautobot
-  register: nautobot_pip
   become: true
   become_user: "{{ nautobot_system_user }}"
 
