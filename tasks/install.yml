@@ -102,7 +102,6 @@
   register: nautobot_db_migration
   changed_when: "'No migrations to apply.' not in nautobot_db_migration.stdout"
   when:
-    - services_state.ansible_facts.services['nautobot.service'] is not defined
     - nautobot_pip.changed
   tags:
     - skip_ansible_lint # login shell is required to exec as nautobot user with profile
