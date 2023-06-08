@@ -59,7 +59,7 @@
 
 - name: install | create Nautobot local_requirements.txt
   ansible.builtin.template:
-    src: nautobot_config.py.j2
+    src: local_requirements.txt.j2
     dest: "{{ nautobot_root }}/local_requirements.txt"
     owner: "{{ nautobot_system_user }}"
     mode: '0664'
